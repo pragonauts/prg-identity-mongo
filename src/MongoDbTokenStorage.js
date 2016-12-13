@@ -39,8 +39,34 @@ class MongoDbTokenStorage {
             delete preparedObject.id;
         }
 
-        return this._collection.insert(preparedObject);
+        return this._collection.insertOne(preparedObject)
+            .then(res => this._filterRawDbObject(res.ops[0]));
     }
+
+    updateToken (id, object) {
+
+        if (!id.match(TOKEN_REGEX)) {
+            const err = new Error('Token ID should be 24char long hexastring');
+            return Promise.reject(err);
+        }
+
+        const patch = Object.assign({}, object);
+
+        if (patch.userId) {
+            patch.userId = new mongodb.ObjectID(object.userId);
+        }
+
+        if (patch.id) {
+            delete patch.id;
+        }
+
+        return this._collection.findOneAndUpdate(
+            { _id: new mongodb.ObjectID(id) },
+            { $set: patch },
+            { returnOriginal: false }
+        ).then(res => res.value ? this._filterRawDbObject(res.value) : null);
+    }
+
 
     dropTokenById (id) {
         return this._collection.deleteOne({
