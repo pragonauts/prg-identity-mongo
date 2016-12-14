@@ -1,6 +1,6 @@
 {
   "name": "prg-identity-mongo",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "",
   "main": "index.js",
   "engines": {
@@ -27,7 +27,6 @@
   },
   "homepage": "https://github.com/pragonauts/prg-identity-mongo#readme",
   "dependencies": {
-    "mongodb": "^2.2.15",
     "mongotoolbox": "0.0.3"
   },
   "devDependencies": {
@@ -44,6 +43,10 @@
     "jsdoc-to-markdown": "^2.0.1",
     "mocha": "^3.1.1",
     "mocha-istanbul": "^0.3.0",
+    "mongodb": "^2.2.15",
     "sinon": "^1.17.6"
+  },
+  "peerDependencies": {
+    "mongodb": "^2.2.15"
   }
 }
