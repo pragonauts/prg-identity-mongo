@@ -64,7 +64,7 @@ class MongoDbTokenStorage {
             { _id: new mongodb.ObjectID(id) },
             { $set: patch },
             { returnOriginal: false }
-        ).then(res => res.value ? this._filterRawDbObject(res.value) : null);
+        ).then(res => (res.value ? this._filterRawDbObject(res.value) : null));
     }
 
 
